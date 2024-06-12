@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body{
+  background-image: url("https://t3.ftcdn.net/jpg/05/56/98/92/360_F_556989229_lBBasUTWiFGKyhyeUXiFcQSY0IJYAKRv.jpg");
+    background-size: cover;
+}
+
+#hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#hero h1 {
+  opacity: 1.0;
+    color: white;
+    font-size: 64px;
+}
+
+#hero p {
+    padding: 0 20px;
+    color: white;
+}
+
+#hero a {
+    margin-top: 20px;
+    color: #004B75;
+    text-decoration: none;
+    background-color: white;
+    width: max-content;
+    padding: 5px 20px; 
+    border-radius: 10px;
+}
+
+#hero a:hover {
+    background-color: #004B75;
+    color: white;
+}
+
+.content-text {
+    padding: 20px;
+}
+
+.beige {
+    background-color: #FFF7DB;
+}
+
+.container {
+    display: flex;
+}
