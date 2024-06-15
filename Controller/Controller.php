@@ -48,9 +48,9 @@ class Controller {
     }	
     public function View($url, $param=false){
         if ($param) {
-            return [$url, $param];
+            return [$url.'.php', $param];
         }else {
-            return [$url];
+            return [$url.'php'];
         }
         
     }

@@ -16,7 +16,7 @@ class UserController extends Controller
 		}
 	}
 	public function Home(){
-		return $this->View('View/Home.php');
+		return $this->View('View/Home');
 	}
 	public function List(){
 		$Users = $this->UserModel->GetAll();
@@ -45,13 +45,13 @@ class UserController extends Controller
 				ORDER BY 
 			    number_of_purchases DESC;
 		    ");
-		return $this->View('View/List.php',['Users'=>$Users->fetchall()]);
+		return $this->View('View/List',['Users'=>$Users->fetchall()]);
 	}
 	public function Register(){
-		return $this->View('View/Register.php');
+		return $this->View('View/Register');
 	}
 	public function Order(){
-		return $this->View('View/Order.php');
+		return $this->View('View/Order');
 	}
 }
 
