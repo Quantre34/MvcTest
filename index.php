@@ -6,34 +6,21 @@ require 'Model/Model.php';
 require 'Controller/Controller.php';
 require 'Controller/AjaxController.php';
 require 'Controller/UserController.php';
-
+require 'src/Routers/Route.php';
+require 'src/Routers/Redirect.php';
 
 $sayfa = $_GET['page']??'';
-function Router($page, $Request){
-	if ($page=='ajax') {
-		return (new AjaxController)->Init($Request);
-	}else {
-		switch ($page) {
-			case 'register':
-				$result = (new UserController)->Register($Request);
-				break;
-			case 'order':
-				$result = (new UserController)->Order($Request);
-				break;
-			case 'list':
-				$result = (new UserController)->List($Request);
-				break;
-			default:
-				$result = (new UserController)->Home($Request);
-				break;
-		}
-		if (!empty($result[1])) {
-			extract($result[1]);
-		}
-		require 'Header.php';
-		require $result[0];
-		require 'Footer.php';
-	}
-}
-echo Router($sayfa, $_REQUEST);
+
+
+echo Route::post('ajax', ['AjaxController','Init']);
+
+
+Route::get('', ['UserController','Home']);
+Route::get('register', ['UserController','Register']);
+Route::get('order', ['UserController','Order']);
+Route::get('list', ['UserController','List']);
+Route::get('login', ['UserController','Login']);
+Route::get('users/{Id}', ['UserController','UserDetail']);
+
+
 ?>

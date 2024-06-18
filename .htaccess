@@ -9,4 +9,7 @@ php_value date.timezone Europe/Istanbul
 php_value session.gc_maxlifetime 7200
 
 
+RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$		index.php?page=$1&param1=$2&param2=$3&param3=$4  [QSA,L]
+RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$		index.php?page=$1&param1=$2&param2=$3  [QSA,L]
+RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)$						index.php?page=$1&param1=$2  [QSA,L]
 RewriteRule ^([A-Za-z0-9-]+)$										index.php?page=$1  [QSA,L]

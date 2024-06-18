@@ -6,20 +6,7 @@
 
 class Address extends Model
 {
-	private function SetData($data){
-		$keys = '';
-		$values = [];
-		$Count = 0;
-		foreach ($data as $key => $value) {
 
-			$keys .= $key.'=?'.($Count != count($data)-1? ',' : '' );
-			$Count++;
-		}
-		foreach ($data as $key => $value) {
-			$values[] = $value;
-		}
-		return ['Keys'=>$keys,'Values'=>$values];
-	}
 
 	public function Get($Id=false){
 		if ($Id) {

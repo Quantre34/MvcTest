@@ -19,6 +19,21 @@ class Model extends Env {
 		}
 	}
 
+    public function SetData($data, $seperator=','){
+        $keys = '';
+        $values = [];
+        $Count = 0;
+        foreach ($data as $key => $value) {
+
+            $keys .= $key.'=?'.($Count != count($data)-1? $seperator : '' );
+            $Count++;
+        }
+        foreach ($data as $key => $value) {
+            $values[] = $value;
+        }
+        return ['Keys'=>$keys,'Values'=>$values];
+    }
+
 	public function Query($sql="", $parameters=[]){
 
         try{

@@ -28,7 +28,7 @@
 
 foreach ($Users as $row) {
     echo "<tr>";
-    echo "<td>" . $row['Name'] . "</td>";
+    echo "<td><a href='users/".$row['Id']."' > " . $row['Name'] . "</a></td>";
     echo "<td>" . $row['Mail'] . "</td>";
     echo "<td>" . $row['number_of_purchases'] . "</td>";
     echo "<td>" . $row['last_purchase_date'] . "</td>";

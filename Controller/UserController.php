@@ -16,15 +16,16 @@ class UserController extends Controller
 		}
 	}
 	public function Home(){
-		return $this->View('View/Home');
+		return $this->view('View/Home');
 	}
 	public function List(){
-		$Users = $this->UserModel->GetAll();
-		// foreach($Users as $key => $User){
-		// 	$User['Orders'] = $this->OrderModel->Find(['UserId'=>$User['Id']]);
-		// 	$User['Status'] = count($User['Orders']) >= 5 ? 'active' : 'inactive';
-		// 	$Users[$key] = $User;
-		// }   THİS WOULD BE MORE PROPER, dont need to much code this way
+		$Users = $this->UserModel->findAll();
+		foreach($Users as $key => $User){
+			$User['Orders'] = $this->OrderModel->Find(['UserId'=>$User['Id']]);
+			$User['Status'] = count($User['Orders']) >= 5 ? 'active' : 'inactive';
+			$Users[$key] = $User;
+		}  
+		 // THİS WOULD BE MORE PROPER, dont need to much code this way
 
 		$Users = $this->Model->Exec("SELECT 
 				users.Id,
@@ -45,13 +46,21 @@ class UserController extends Controller
 				ORDER BY 
 			    number_of_purchases DESC;
 		    ");
-		return $this->View('View/List',['Users'=>$Users->fetchall()]);
+		$Users = $Users->fetchall();
+		return $this->view('View/List',['Users'=>$Users]);
 	}
 	public function Register(){
-		return $this->View('View/Register');
+		return $this->view('View/Register');
 	}
 	public function Order(){
-		return $this->View('View/Order');
+		return $this->view('View/Order');
+	}
+	public function Login(){
+		return $this->view('View/Login');
+	}
+	public function UserDetail($Id){
+		$User = $this->UserModel->get($Id);
+		return $this->view('View/User-Detail',['User'=>$User]);
 	}
 }
 

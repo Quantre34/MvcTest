@@ -46,11 +46,11 @@ class Controller {
             return false;
         }
     }	
-    public function View($url, $param=false){
+    public function view($url, $param=false){
         if ($param) {
             return [$url.'.php', $param];
         }else {
-            return [$url.'php'];
+            return [$url.'.php'];
         }
         
     }

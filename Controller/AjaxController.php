@@ -65,7 +65,7 @@ class AjaxController extends Controller
 			$empty = $this->isAnyEmpty($data);
 			if (!$empty) {
 				$this->OrderModel->Insert($data);
-				$result = ['outcome'=>true,'Message'=>'Kiralama işlemi başarılı, Recep özmen size dönüş yapacak'];
+				$result = ['outcome'=>true,'Message'=>'Kiralama işlemi başarılı, Recep özmen size dönüş yapacak','route'=>'/list'];
 			}else {
 				$result = ['outcome'=>false,'ErrorMessage'=>'Lütfen tüm alanları doldurum','tag'=>$empty];
 			}
@@ -76,12 +76,53 @@ class AjaxController extends Controller
 				'Name'=>htmlspecialchars($this->Get('param'))
 			];
 			if (!$this->isAnyEmpty($data)) {
-				$result = $this->UserModel->FindA($data['Name']);
+				$result = $this->UserModel->findALike($data['Name']);
 			}else {
 				$result = false;
 			}
 			return json_encode($result);
 		}
+		if ($this->action == 'Login') {
+			$data = [
+				'Mail'=>htmlspecialchars($this->Get('Mail')),
+				'Password'=>htmlspecialchars($this->Get('Password')),
+			];
+			$empty = $this->isAnyEmpty($data);
+			if (!$empty) {
+				$User = $this->UserModel->find(['Mail'=>$data['Mail'],'Password'=>$data['Password']]);
+				if (!empty($User)) {
+					$_SESSION['User'] = $User;
+					$result = ['outcome'=> true,'route'=>'/'];
+				}else {
+					$result = ['outcome'=>false,'ErrorMessage'=>'Kullanıcı bilgileri hatalı'];
+				}				
+			}else {
+				$result = ['outcome'=>false,'ErrorMessage'=>'Lütfen tüm alanları doldurum','tag'=>$empty];
+			}
+			return json_encode($result);
+		}
+		//
+		if ($this->action == 'UpdateUser') {
+			$data = [
+				'Id'=>htmlspecialchars($this->Get('Id')),
+				'Name'=>htmlspecialchars($this->Get('Name')),
+				'Mail'=>htmlspecialchars($this->Get('Mail')),
+				'Job'=>htmlspecialchars($this->Get('Job'))
+			];
+			$empty = $this->isAnyEmpty($data);
+			if (!$empty) {
+				$action = $this->UserModel->Update($data['Id'],['Mail'=>$data['Mail'],'Name'=>$data['Name'],'Name'=>$data['Name'],'Job'=>$data['Job']]);
+				if (!empty($action)) {
+					$result = ['outcome'=> true,'route'=>'/list'];
+				}else {
+					$result = ['outcome'=>false,'ErrorMessage'=>'Kullanıcı güncellenemedi'];
+				}				
+			}else {
+				$result = ['outcome'=>false,'ErrorMessage'=>'Lütfen tüm alanları doldurum','tag'=>$empty];
+			}
+			return json_encode($result);
+		}
+
 
 	}
 }
